@@ -13,16 +13,22 @@ with zipfile.ZipFile('map_skills.zip', 'r') as zipf:
 # Título del Dashboard
 st.title('EarnWise')
 
-# Párrafo de bienvenida
-st.write('''
-Welcome to EarnWise!
+# Columnas para el párrafo de bienvenida y el botón
+col1, col2 = st.columns(2)
 
-The easiest, fastest and most transparent way to find salary information in your Sector/Industry.
+with col1:
+    st.write('''
+    Welcome to EarnWise!
 
-At this time, we only have information for the United States.
+    The easiest, fastest and most transparent way to find salary information in your Sector/Industry.
 
-Help us collect data from other countries by posting your information in the tab "Help Us Grow".
-''')
+    At this time, we only have information for the United States.
+
+    Help us collect data from other countries by posting your information in the tab "Help Us Grow".
+    ''')
+
+with col2:
+    st.button('Predict your Salary')
 
 # Sidebar con los filtros
 st.sidebar.header('Filters')
