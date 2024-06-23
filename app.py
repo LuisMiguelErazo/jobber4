@@ -11,7 +11,7 @@ with zipfile.ZipFile('map_skills.zip', 'r') as zipf:
         df = pd.read_csv(f)
 
 # Título del Dashboard
-st.title('EarnWise')
+st.title('EarnW')
 
 # Párrafo de bienvenida
 st.write('''
