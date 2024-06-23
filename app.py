@@ -47,7 +47,7 @@ industry = st.sidebar.selectbox('Industry', get_options('Industry', {'Category':
 experience = st.sidebar.selectbox('Experience Level', get_options('Experience Level', {'Category': category, 'Industry': industry}))
 
 # Pestañas
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow'])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow', 'Relevant Study Fields'])
 
 # Función para actualizar el mapa
 def update_map(category, industry, experience):
@@ -84,7 +84,7 @@ def update_map(category, industry, experience):
 def plot_wordcloud(category):
     if category != 'All':
         filtered_df = df[df['Category'] == category]
-        top_skills = filtered_df['Soft Skill'].dropna().value_counts().head(5).index.tolist()
+        top_skills = filtered_df['Soft Skill'].dropna().value_counts().head(8).index.tolist()
         text = ' '.join(filtered_df[filtered_df['Soft Skill'].isin(top_skills)]['Soft Skill'].tolist())
         wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
         plt.figure(figsize=(10, 5))
@@ -154,6 +154,20 @@ def plot_salary_insights(category):
 
     st.plotly_chart(fig)
 
+# Función para word cloud de campos de estudio relevantes
+def plot_study_fields_wordcloud(category):
+    if category != 'All':
+        filtered_df = df[df['Category'] == category]
+        text = ' '.join(filtered_df['Study Fields'].dropna().tolist())
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis('off')
+        plt.title(f'Relevant Study Fields in {category} Category')
+        st.pyplot(plt)
+    else:
+        st.write('Select a Category to Display Word Cloud')
+
 # Map tab
 with tab1:
     update_map(category, industry, experience)
@@ -189,3 +203,7 @@ with tab6:
     
     if submit_button:
         st.write('Thank you for your submission!')
+
+# Relevant Study Fields tab
+with tab7:
+    plot_study_fields_wordcloud(category)
