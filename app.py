@@ -47,7 +47,7 @@ industry = st.sidebar.selectbox('Industry', get_options('Industry', {'Category':
 experience = st.sidebar.selectbox('Experience Level', get_options('Experience Level', {'Category': category, 'Industry': industry}))
 
 # Pestañas
-tabs = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow', 'Relevant Study Fields', 'Relevant Tools'])
+tabs = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow', 'Study Fields', 'Relevant Tools'])
 
 # Función para actualizar el mapa
 def update_map(category, industry, experience):
@@ -220,7 +220,7 @@ with tabs[5]:
     if submit_button:
         st.write('Thank you for your submission!')
 
-# Relevant Study Fields tab
+# Study Fields tab
 with tabs[6]:
     plot_study_fields_wordcloud(category)
 
