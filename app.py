@@ -158,7 +158,8 @@ def plot_salary_insights(category):
 def plot_study_fields_wordcloud(category):
     if category != 'All':
         filtered_df = df[df['Category'] == category]
-        text = ' '.join(filtered_df['Study Fields'].dropna().tolist())
+        top_study_fields = filtered_df['Study Fields'].dropna().value_counts().head(4).index.tolist()
+        text = ' '.join(filtered_df[filtered_df['Study Fields'].isin(top_study_fields)]['Study Fields'].tolist())
         wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
         plt.figure(figsize=(10, 5))
         plt.imshow(wordcloud, interpolation='bilinear')
