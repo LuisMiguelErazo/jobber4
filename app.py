@@ -47,7 +47,7 @@ industry = st.sidebar.selectbox('Industry', get_options('Industry', {'Category':
 experience = st.sidebar.selectbox('Experience Level', get_options('Experience Level', {'Category': category, 'Industry': industry}))
 
 # Pestañas
-tabs = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow', 'Relevant Study Fields'])
+tabs = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow', 'Relevant Study Fields', 'Relevant Tools'])
 
 # Función para actualizar el mapa
 def update_map(category, industry, experience):
@@ -164,7 +164,22 @@ def plot_study_fields_wordcloud(category):
         plt.figure(figsize=(10, 5))
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')
-        plt.title(f'Relevant Study Fields in {category} Category')
+        plt.title(f'Study Fields in {category} Category')
+        st.pyplot(plt)
+    else:
+        st.write('Select a Category to Display Word Cloud')
+
+# Función para word cloud de herramientas relevantes
+def plot_tools_wordcloud(category):
+    if category != 'All':
+        filtered_df = df[df['Category'] == category]
+        top_tools = filtered_df['Software Programs'].dropna().value_counts().head(5).index.tolist()
+        text = ' '.join(filtered_df[filtered_df['Software Programs'].isin(top_tools)]['Software Programs'].tolist())
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis('off')
+        plt.title(f'Relevant Tools in {category} Category')
         st.pyplot(plt)
     else:
         st.write('Select a Category to Display Word Cloud')
@@ -208,3 +223,7 @@ with tabs[5]:
 # Relevant Study Fields tab
 with tabs[6]:
     plot_study_fields_wordcloud(category)
+
+# Relevant Tools tab
+with tabs[7]:
+    plot_tools_wordcloud(category)
