@@ -84,7 +84,7 @@ def update_map(category, industry, experience):
 def plot_wordcloud(category):
     if category != 'All':
         filtered_df = df[df['Category'] == category]
-        top_skills = filtered_df['Soft Skill'].dropna().value_counts().head(8).index.tolist()
+        top_skills = filtered_df['Soft Skill'].dropna().value_counts().head(5).index.tolist()
         text = ' '.join(filtered_df[filtered_df['Soft Skill'].isin(top_skills)]['Soft Skill'].tolist())
         wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
         plt.figure(figsize=(10, 5))
