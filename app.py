@@ -32,7 +32,7 @@ with col2:
         <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
             <button style="padding: 10px 20px; font-size: 16px;">Predict your Salary</button>
         </div>
-        """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 # Sidebar con los filtros
 st.sidebar.header('Filters')
