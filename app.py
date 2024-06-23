@@ -5,6 +5,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import zipfile
 
+# Carga de datos
 with zipfile.ZipFile('map_skills.zip', 'r') as zipf:
     with zipf.open('map_skills.csv') as f:
         df = pd.read_csv(f)
@@ -26,14 +27,24 @@ Help us collect data from other countries by posting your information in the tab
 # Sidebar con los filtros
 st.sidebar.header('Filters')
 
-categories = sorted(df['Category'].unique().tolist())
-category = st.sidebar.multiselect('Category', categories, default=['All'])
+# Función para obtener opciones de filtro
+def get_options(column, previous_filter=None, all_option=True):
+    if previous_filter is not None:
+        df_filtered = df
+        for col, val in previous_filter.items():
+            if val != 'All':
+                df_filtered = df_filtered[df_filtered[col] == val]
+    else:
+        df_filtered = df
 
-industries = df['Industry'].unique() if 'All' in category else df[df['Category'].isin(category)]['Industry'].unique()
-industry = st.sidebar.multiselect('Industry', sorted(industries.tolist()), default=['All'])
+    options = sorted(df_filtered[column].unique().tolist())
+    if all_option:
+        options = ['All'] + options
+    return options
 
-experiences = df['Experience Level'].unique() if 'All' in industry else df[(df['Category'].isin(category)) & (df['Industry'].isin(industry))]['Experience Level'].unique()
-experience = st.sidebar.multiselect('Experience Level', sorted(experiences.tolist()), default=['All'])
+category = st.sidebar.selectbox('Category', get_options('Category'))
+industry = st.sidebar.selectbox('Industry', get_options('Industry', {'Category': category}))
+experience = st.sidebar.selectbox('Experience Level', get_options('Experience Level', {'Category': category, 'Industry': industry}))
 
 # Pestañas
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow'])
@@ -41,12 +52,12 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Map', 'Salary by State', 'Key Ski
 # Función para actualizar el mapa
 def update_map(category, industry, experience):
     filtered_df = df.copy()
-    if 'All' not in category:
-        filtered_df = filtered_df[filtered_df['Category'].isin(category)]
-    if 'All' not in industry:
-        filtered_df = filtered_df[filtered_df['Industry'].isin(industry)]
-    if 'All' not in experience:
-        filtered_df = filtered_df[filtered_df['Experience Level'].isin(experience)]
+    if category != 'All':
+        filtered_df = filtered_df[filtered_df['Category'] == category]
+    if industry != 'All':
+        filtered_df = filtered_df[filtered_df['Industry'] == industry]
+    if experience != 'All':
+        filtered_df = filtered_df[filtered_df['Experience Level'] == experience]
 
     state_salary = filtered_df.groupby('State').agg(
         Medium_Salary=('Medium Salary', 'mean')
@@ -71,14 +82,14 @@ def update_map(category, industry, experience):
 
 # Función para crear word cloud de habilidades clave
 def plot_wordcloud(category):
-    if 'All' not in category:
-        filtered_df = df[df['Category'].isin(category)]
+    if category != 'All':
+        filtered_df = df[df['Category'] == category]
         text = ' '.join(filtered_df['Soft Skill'].dropna().tolist())
         wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
         plt.figure(figsize=(10, 5))
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')
-        plt.title(f'Top Soft Skills in {", ".join(category)} Category')
+        plt.title(f'Top Soft Skills in {category} Category')
         st.pyplot(plt)
     else:
         st.write('Select a Category to Display Word Cloud')
@@ -86,12 +97,12 @@ def plot_wordcloud(category):
 # Función para scatter plot de salarios por estado
 def plot_salary_by_state(category, industry, experience):
     filtered_df = df.copy()
-    if 'All' not in category:
-        filtered_df = filtered_df[filtered_df['Category'].isin(category)]
-    if 'All' not in industry:
-        filtered_df = filtered_df[filtered_df['Industry'].isin(industry)]
-    if 'All' not in experience:
-        filtered_df = filtered_df[filtered_df['Experience Level'].isin(experience)]
+    if category != 'All':
+        filtered_df = filtered_df[filtered_df['Category'] == category]
+    if industry != 'All':
+        filtered_df = filtered_df[filtered_df['Industry'] == industry]
+    if experience != 'All':
+        filtered_df = filtered_df[filtered_df['Experience Level'] == experience]
 
     fig = px.scatter(filtered_df, x='State', y='Medium Salary', size='Medium Salary',
                      title='Medium Salary by State')
@@ -105,10 +116,10 @@ def plot_salary_by_state(category, industry, experience):
 # Función para distribución de salarios
 def plot_salary_distribution(category, industry):
     filtered_df = df.copy()
-    if 'All' not in category:
-        filtered_df = filtered_df[filtered_df['Category'].isin(category)]
-    if 'All' not in industry:
-        filtered_df = filtered_df[filtered_df['Industry'].isin(industry)]
+    if category != 'All':
+        filtered_df = filtered_df[filtered_df['Category'] == category]
+    if industry != 'All':
+        filtered_df = filtered_df[filtered_df['Industry'] == industry]
 
     # Agrupar por 'Experience Level' y calcular el promedio de 'Medium Salary'
     grouped_df = filtered_df.groupby('Experience Level', as_index=False)['Medium Salary'].mean()
@@ -129,8 +140,8 @@ def plot_salary_distribution(category, industry):
 # Función para insights de salario
 def plot_salary_insights(category):
     filtered_df = df.copy()
-    if 'All' not in category:
-        filtered_df = filtered_df[filtered_df['Category'].isin(category)]
+    if category != 'All':
+        filtered_df = filtered_df[filtered_df['Category'] == category]
 
     fig = px.box(filtered_df, x='Category', y='Medium Salary',
                  title='Salary Insights by Category')
