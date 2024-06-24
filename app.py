@@ -25,19 +25,24 @@ def show_home_page():
     Help us collect data from other countries by posting your information in the tab "Help Us Grow".
     ''')
 
-    # Botón 'Find your salary insights'
-    find_insights = st.button('Find your salary insights')
-
-    # Texto: 'Or'
-    st.markdown("<h3 style='text-align: center;'>Or</h3>", unsafe_allow_html=True)
-
-    # Botón 'Predict your salary'
-    predict_salary = st.button('Predict your salary')
+    # Centrar los botones
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col1:
+        st.write("")
+    with col2:
+        find_insights = st.button('Find your salary insights')
+        predict_salary = st.button('Predict your salary')
+    with col3:
+        st.write("")
 
     return find_insights, predict_salary
 
 # Función para mostrar los filtros y las pestañas
 def show_salary_insights():
+    # Botón 'Home'
+    if st.button('Home'):
+        st.session_state.page = "home"
+    
     # Filtros
     st.subheader('Filters')
 
@@ -196,11 +201,16 @@ def show_salary_insights():
         if submit_button:
             st.write('Thank you for your submission!')
 
-# Mostrar la página de inicio
-find_insights, predict_salary = show_home_page()
+# Inicializar la sesión de estado para la página
+if 'page' not in st.session_state:
+    st.session_state.page = 'home'
 
-# Mostrar la sección de 'Find your salary insights' si se pulsa el botón correspondiente
-if find_insights:
+# Mostrar la página según el estado actual
+if st.session_state.page == 'home':
+    find_insights, predict_salary = show_home_page()
+    if find_insights:
+        st.session_state.page = 'insights'
+    elif predict_salary:
+        st.write("This feature is coming soon!")
+elif st.session_state.page == 'insights':
     show_salary_insights()
-elif predict_salary:
-    st.write("This feature is coming soon!")
