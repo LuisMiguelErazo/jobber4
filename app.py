@@ -60,7 +60,7 @@ def show_salary_insights():
     experience = st.selectbox('Experience Level', experiences)
 
     # Pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow'])
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow', 'Study Fields', 'Relevant Tools'])
 
     # Función para actualizar el mapa
     def update_map(category, industry, experience):
@@ -166,6 +166,36 @@ def show_salary_insights():
 
         st.plotly_chart(fig)
 
+    # Función para word cloud de campos de estudio relevantes
+    def plot_study_fields_wordcloud(category):
+        if category != 'All':
+            filtered_df = df[df['Category'] == category]
+            top_study_fields = filtered_df['Study Fields'].dropna().value_counts().head(4).index.tolist()
+            text = ' '.join(filtered_df[filtered_df['Study Fields'].isin(top_study_fields)]['Study Fields'].tolist())
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+            plt.figure(figsize=(10, 5))
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis('off')
+            plt.title(f'Study Fields in {category} Category')
+            st.pyplot(plt)
+        else:
+            st.write('Select a Category to Display Word Cloud')
+
+    # Función para word cloud de herramientas relevantes
+    def plot_tools_wordcloud(category):
+        if category != 'All':
+            filtered_df = df[df['Category'] == category]
+            top_tools = filtered_df['Software Programs'].dropna().value_counts().head(5).index.tolist()
+            text = ' '.join(filtered_df[filtered_df['Software Programs'].isin(top_tools)]['Software Programs'].tolist())
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+            plt.figure(figsize=(10, 5))
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis('off')
+            plt.title(f'Relevant Tools in {category} Category')
+            st.pyplot(plt)
+        else:
+            st.write('Select a Category to Display Word Cloud')
+
     # Map tab
     with tab1:
         update_map(category, industry, experience)
@@ -201,6 +231,14 @@ def show_salary_insights():
 
         if submit_button:
             st.write('Thank you for your submission!')
+
+    # Study Fields tab
+    with tab7:
+        plot_study_fields_wordcloud(category)
+
+    # Relevant Tools tab
+    with tab8:
+        plot_tools_wordcloud(category)
 
 # Inicializar la sesión de estado para la página
 if 'page' not in st.session_state:
