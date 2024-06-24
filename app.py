@@ -1,10 +1,10 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
-from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import zipfile
 
+# Cargar el archivo CSV desde el archivo zip
 with zipfile.ZipFile('map_skills.zip', 'r') as zipf:
     with zipf.open('map_skills.csv') as f:
         df = pd.read_csv(f)
@@ -659,7 +659,7 @@ def show_salary_insights():
                             locations='State',
                             locationmode='USA-states',
                             color='Medium_Salary',
-                            color_continuous_scale='Viridis',
+                            color_continuous_scale='Blues',
                             scope='usa',
                             labels={'Medium_Salary': 'Medium Salary'},
                             hover_data={'State': True, 'Medium_Salary': True})
@@ -676,7 +676,7 @@ def show_salary_insights():
             soft_skills = industry_info.get(category, {}).get('soft_skills', [])
             if soft_skills:
                 freq_dict = {skill.split('. ')[1]: int(skill.split('. ')[0]) for skill in soft_skills}
-                wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(freq_dict)
+                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate_from_frequencies(freq_dict)
                 plt.figure(figsize=(10, 5))
                 plt.imshow(wordcloud, interpolation='bilinear')
                 plt.axis('off')
@@ -696,8 +696,8 @@ def show_salary_insights():
         if experience != 'All':
             filtered_df = filtered_df[filtered_df['Experience Level'] == experience]
 
-        fig = px.scatter(filtered_df, x='State', y='Medium Salary', size='Medium Salary',
-                         title='Medium Salary by State')
+        fig = px.scatter(filtered_df, x='State', y='Medium Salary', size='Medium Salary', color='Medium Salary',
+                         color_continuous_scale='Blues', title='Medium Salary by State')
 
         fig.update_traces(
             hovertemplate='<b>State:</b> %{x}<br><b>Medium Salary:</b> $%{y:,.2f}<extra></extra>'
@@ -716,7 +716,7 @@ def show_salary_insights():
         grouped_df = grouped_df.sort_values(by='Medium Salary')
 
         fig = px.bar(grouped_df, x='Experience Level', y='Medium Salary', color='Experience Level',
-                     title='Salary Distribution by Experience Level')
+                     color_continuous_scale='Blues', title='Salary Distribution by Experience Level')
         fig.update_traces(texttemplate='$%{y:,.2f}', textposition='outside')
 
         fig.update_layout(yaxis_tickformat='$,.2f')
@@ -737,37 +737,29 @@ def show_salary_insights():
 
         st.plotly_chart(fig)
 
-    def plot_study_fields_wordcloud(category):
+    def show_study_fields(category):
         if category != 'All':
             study_fields = industry_info.get(category, {}).get('study_fields', [])
             if study_fields:
-                text = ' '.join(study_fields)
-                wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-                plt.figure(figsize=(10, 5))
-                plt.imshow(wordcloud, interpolation='bilinear')
-                plt.axis('off')
-                plt.title(f'Study Fields in {category} Category')
-                st.pyplot(plt)
+                st.write(f"Study Fields in {category} Category:")
+                for field in study_fields:
+                    st.write(f"- {field}")
             else:
                 st.write('No data available for the selected category')
         else:
-            st.write('Select a Category to Display Word Cloud')
+            st.write('Select a Category to Display Study Fields')
 
-    def plot_tools_wordcloud(category):
+    def show_tools(category):
         if category != 'All':
             software_programs = industry_info.get(category, {}).get('software_programs', [])
             if software_programs:
-                text = ' '.join(software_programs)
-                wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-                plt.figure(figsize=(10, 5))
-                plt.imshow(wordcloud, interpolation='bilinear')
-                plt.axis('off')
-                plt.title(f'Relevant Tools in {category} Category')
-                st.pyplot(plt)
+                st.write(f"Relevant Tools in {category} Category:")
+                for tool in software_programs:
+                    st.write(f"- {tool}")
             else:
                 st.write('No data available for the selected category')
         else:
-            st.write('Select a Category to Display Word Cloud')
+            st.write('Select a Category to Display Relevant Tools')
 
     with tab1:
         update_map(category, industry, experience)
@@ -785,10 +777,10 @@ def show_salary_insights():
         plot_wordcloud(category)
 
     with tab6:
-        plot_study_fields_wordcloud(category)
+        show_study_fields(category)
 
     with tab7:
-        plot_tools_wordcloud(category)
+        show_tools(category)
 
     with tab8:
         st.header('Help Us Grow')
