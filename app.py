@@ -9,6 +9,10 @@ with zipfile.ZipFile('map_skills.zip', 'r') as zipf:
     with zipf.open('map_skills.csv') as f:
         df = pd.read_csv(f)
 
+industry_info = {
+    # (Aquí va tu diccionario 'industry_info')
+}
+
 # Función para mostrar la página de inicio
 def show_home_page():
     # Título del Dashboard
@@ -96,14 +100,18 @@ def show_salary_insights():
     # Función para crear word cloud de habilidades clave
     def plot_wordcloud(category):
         if category != 'All':
-            filtered_df = df[df['Category'] == category]
-            text = ' '.join(filtered_df['Soft Skill'].dropna().tolist())
-            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-            plt.figure(figsize=(10, 5))
-            plt.imshow(wordcloud, interpolation='bilinear')
-            plt.axis('off')
-            plt.title(f'Top Soft Skills in {category} Category')
-            st.pyplot(plt)
+            soft_skills = industry_info.get(category, {}).get('soft_skills', [])
+            if soft_skills:
+                # Crear un diccionario de frecuencias con el nivel de importancia como frecuencia
+                freq_dict = {skill.split('. ')[1]: int(skill.split('. ')[0]) for skill in soft_skills}
+                wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(freq_dict)
+                plt.figure(figsize=(10, 5))
+                plt.imshow(wordcloud, interpolation='bilinear')
+                plt.axis('off')
+                plt.title(f'Top Soft Skills in {category} Category')
+                st.pyplot(plt)
+            else:
+                st.write('No data available for the selected category')
         else:
             st.write('Select a Category to Display Word Cloud')
 
@@ -169,30 +177,34 @@ def show_salary_insights():
     # Función para word cloud de campos de estudio relevantes
     def plot_study_fields_wordcloud(category):
         if category != 'All':
-            filtered_df = df[df['Category'] == category]
-            top_study_fields = filtered_df['Study Fields'].dropna().value_counts().head(4).index.tolist()
-            text = ' '.join(filtered_df[filtered_df['Study Fields'].isin(top_study_fields)]['Study Fields'].tolist())
-            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-            plt.figure(figsize=(10, 5))
-            plt.imshow(wordcloud, interpolation='bilinear')
-            plt.axis('off')
-            plt.title(f'Study Fields in {category} Category')
-            st.pyplot(plt)
+            study_fields = industry_info.get(category, {}).get('study_fields', [])
+            if study_fields:
+                text = ' '.join(study_fields)
+                wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+                plt.figure(figsize=(10, 5))
+                plt.imshow(wordcloud, interpolation='bilinear')
+                plt.axis('off')
+                plt.title(f'Study Fields in {category} Category')
+                st.pyplot(plt)
+            else:
+                st.write('No data available for the selected category')
         else:
             st.write('Select a Category to Display Word Cloud')
 
     # Función para word cloud de herramientas relevantes
     def plot_tools_wordcloud(category):
         if category != 'All':
-            filtered_df = df[df['Category'] == category]
-            top_tools = filtered_df['Software Programs'].dropna().value_counts().head(5).index.tolist()
-            text = ' '.join(filtered_df[filtered_df['Software Programs'].isin(top_tools)]['Software Programs'].tolist())
-            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-            plt.figure(figsize=(10, 5))
-            plt.imshow(wordcloud, interpolation='bilinear')
-            plt.axis('off')
-            plt.title(f'Relevant Tools in {category} Category')
-            st.pyplot(plt)
+            software_programs = industry_info.get(category, {}).get('software_programs', [])
+            if software_programs:
+                text = ' '.join(software_programs)
+                wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+                plt.figure(figsize=(10, 5))
+                plt.imshow(wordcloud, interpolation='bilinear')
+                plt.axis('off')
+                plt.title(f'Relevant Tools in {category} Category')
+                st.pyplot(plt)
+            else:
+                st.write('No data available for the selected category')
         else:
             st.write('Select a Category to Display Word Cloud')
 
