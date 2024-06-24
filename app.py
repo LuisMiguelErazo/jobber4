@@ -15,10 +15,8 @@ industry_info = {
 
 # Función para mostrar la página de inicio
 def show_home_page():
-    # Título del Dashboard
     st.title('EarnWise')
 
-    # Párrafo de bienvenida
     st.write('''
     Welcome to EarnWise!
 
@@ -29,7 +27,6 @@ def show_home_page():
     Help us collect data from other countries by posting your information in the tab "Help Us Grow".
     ''')
 
-    # Centrar los botones y el texto "Or"
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
         st.write("")
@@ -44,11 +41,9 @@ def show_home_page():
 
 # Función para mostrar los filtros y las pestañas
 def show_salary_insights():
-    # Botón 'Home'
     if st.button('Home'):
         st.session_state.page = "home"
     
-    # Filtros
     st.subheader('Filters')
 
     categories = sorted(df['Category'].unique().tolist())
@@ -63,10 +58,8 @@ def show_salary_insights():
     experiences = ['All'] + sorted(experiences.tolist())
     experience = st.selectbox('Experience Level', experiences)
 
-    # Pestañas
     tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(['Map', 'Salary by State', 'Salary Distribution', 'Salary Insights', 'Key Skills', 'Study Fields', 'Relevant Tools', 'Help Us Grow'])
 
-    # Función para actualizar el mapa
     def update_map(category, industry, experience):
         filtered_df = df.copy()
         if category != 'All':
@@ -89,7 +82,6 @@ def show_salary_insights():
                             labels={'Medium_Salary': 'Medium Salary'},
                             hover_data={'State': True, 'Medium_Salary': True})
 
-        # Formateo del tooltip
         fig.update_traces(
             hovertemplate='<b>%{location}</b><br>Medium Salary: $%{z:,.2f}'
         )
@@ -97,12 +89,10 @@ def show_salary_insights():
         fig.update_layout(title='Medium Salary by State', geo=dict(scope='usa'))
         st.plotly_chart(fig)
 
-    # Función para crear word cloud de habilidades clave
     def plot_wordcloud(category):
         if category != 'All':
             soft_skills = industry_info.get(category, {}).get('soft_skills', [])
             if soft_skills:
-                # Crear un diccionario de frecuencias con el nivel de importancia como frecuencia
                 freq_dict = {skill.split('. ')[1]: int(skill.split('. ')[0]) for skill in soft_skills}
                 wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(freq_dict)
                 plt.figure(figsize=(10, 5))
@@ -115,7 +105,6 @@ def show_salary_insights():
         else:
             st.write('Select a Category to Display Word Cloud')
 
-    # Función para scatter plot de salarios por estado
     def plot_salary_by_state(category, industry, experience):
         filtered_df = df.copy()
         if category != 'All':
@@ -134,7 +123,6 @@ def show_salary_insights():
 
         st.plotly_chart(fig)
 
-    # Función para distribución de salarios
     def plot_salary_distribution(category, industry):
         filtered_df = df.copy()
         if category != 'All':
@@ -142,23 +130,17 @@ def show_salary_insights():
         if industry != 'All':
             filtered_df = filtered_df[filtered_df['Industry'] == industry]
 
-        # Agrupar por 'Experience Level' y calcular el promedio de 'Medium Salary'
         grouped_df = filtered_df.groupby('Experience Level', as_index=False)['Medium Salary'].mean()
-
-        # Ordenar el DataFrame por 'Medium Salary' de menor a mayor
         grouped_df = grouped_df.sort_values(by='Medium Salary')
 
-        # Crear el gráfico de barras con formato de número personalizado
         fig = px.bar(grouped_df, x='Experience Level', y='Medium Salary', color='Experience Level',
                      title='Salary Distribution by Experience Level')
         fig.update_traces(texttemplate='$%{y:,.2f}', textposition='outside')
 
-        # Actualizar el eje y para tener el mismo formato
         fig.update_layout(yaxis_tickformat='$,.2f')
 
         st.plotly_chart(fig)
 
-    # Función para insights de salario
     def plot_salary_insights(category):
         filtered_df = df.copy()
         if category != 'All':
@@ -167,14 +149,12 @@ def show_salary_insights():
         fig = px.box(filtered_df, x='Category', y='Medium Salary',
                      title='Salary Insights by Category')
 
-        # Formateo del tooltip
         fig.update_traces(
             hovertemplate='<b>%{x}</b><br>Medium Salary: $%{y:,.2f}<extra></extra>'
         )
 
         st.plotly_chart(fig)
 
-    # Función para word cloud de campos de estudio relevantes
     def plot_study_fields_wordcloud(category):
         if category != 'All':
             study_fields = industry_info.get(category, {}).get('study_fields', [])
@@ -191,7 +171,6 @@ def show_salary_insights():
         else:
             st.write('Select a Category to Display Word Cloud')
 
-    # Función para word cloud de herramientas relevantes
     def plot_tools_wordcloud(category):
         if category != 'All':
             software_programs = industry_info.get(category, {}).get('software_programs', [])
@@ -208,35 +187,27 @@ def show_salary_insights():
         else:
             st.write('Select a Category to Display Word Cloud')
 
-    # Map tab
     with tab1:
         update_map(category, industry, experience)
 
-    # Salary by State tab
     with tab2:
         plot_salary_by_state(category, industry, experience)
 
-    # Salary Distribution tab
     with tab3:
         plot_salary_distribution(category, industry)
 
-    # Salary Insights tab
     with tab4:
         plot_salary_insights(category)
 
-    # Key Skills tab
     with tab5:
         plot_wordcloud(category)
 
-    # Study Fields tab
     with tab6:
         plot_study_fields_wordcloud(category)
 
-    # Relevant Tools tab
     with tab7:
         plot_tools_wordcloud(category)
 
-    # Help Us Grow tab
     with tab8:
         st.header('Help Us Grow')
         with st.form(key='help_us_grow_form'):
@@ -252,11 +223,9 @@ def show_salary_insights():
         if submit_button:
             st.write('Thank you for your submission!')
 
-# Inicializar la sesión de estado para la página
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
-# Mostrar la página según el estado actual
 if st.session_state.page == 'home':
     find_insights, predict_salary = show_home_page()
     if find_insights:
