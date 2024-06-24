@@ -98,7 +98,6 @@ def show_salary_insights():
         if category != 'All':
             filtered_df = df[df['Category'] == category]
             text = ' '.join(filtered_df['Soft Skill'].dropna().tolist())
-            text = text.replace(" ", "_")
             wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
             plt.figure(figsize=(10, 5))
             plt.imshow(wordcloud, interpolation='bilinear')
@@ -173,7 +172,6 @@ def show_salary_insights():
             filtered_df = df[df['Category'] == category]
             top_study_fields = filtered_df['Study Fields'].dropna().value_counts().head(4).index.tolist()
             text = ' '.join(filtered_df[filtered_df['Study Fields'].isin(top_study_fields)]['Study Fields'].tolist())
-            text = text.replace(" ", "_")
             wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
             plt.figure(figsize=(10, 5))
             plt.imshow(wordcloud, interpolation='bilinear')
@@ -189,7 +187,6 @@ def show_salary_insights():
             filtered_df = df[df['Category'] == category]
             top_tools = filtered_df['Software Programs'].dropna().value_counts().head(5).index.tolist()
             text = ' '.join(filtered_df[filtered_df['Software Programs'].isin(top_tools)]['Software Programs'].tolist())
-            text = text.replace(" ", "_")
             wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
             plt.figure(figsize=(10, 5))
             plt.imshow(wordcloud, interpolation='bilinear')
