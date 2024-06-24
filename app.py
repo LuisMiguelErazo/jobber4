@@ -90,6 +90,9 @@ def show_salary_insights():
             text = ' '.join(filtered_df[column].dropna().tolist())
             if text:
                 wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate(text)
+                word_freq = wordcloud.words_
+                top_words = dict(sorted(word_freq.items(), key=lambda item: item[1], reverse=True)[:7])
+                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate_from_frequencies(top_words)
                 plt.figure(figsize=(10, 5))
                 plt.imshow(wordcloud, interpolation='bilinear')
                 plt.axis('off')
@@ -135,11 +138,11 @@ def show_salary_insights():
     def show_list(category, column):
         if category != 'All':
             filtered_df = df[df['Category'] == category]
-            items = filtered_df[column].dropna().unique()
+            items = filtered_df[column].dropna().str.split(',').explode().unique()
             if items.size > 0:
                 st.write(f"{column} in {category} Category:")
                 for item in items:
-                    st.write(f"- {item}")
+                    st.write(f"- {item.strip()}")
             else:
                 st.write(f'No data available for the selected category and column {column}')
         else:
