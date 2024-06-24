@@ -27,7 +27,7 @@ Help us collect data from other countries by posting your information in the tab
 st.header('Find your salary insights')
 
 # Filtros
-st.subheader('Filters')
+st.write('Choose your filters')
 
 categories = sorted(df['Category'].unique().tolist())
 categories = ['All'] + categories
@@ -42,7 +42,7 @@ experiences = ['All'] + sorted(experiences.tolist())
 experience = st.selectbox('Experience Level', experiences)
 
 # Texto: 'Or'
-st.markdown("<h3 style='text-align: center;'>Or</h3>", unsafe_allow_html=True)
+st.subheader('Or')
 
 # Botón 'Predict your salary'
 if st.button('Predict your salary'):
