@@ -12,6 +12,9 @@ with zipfile.ZipFile('map_skills.zip', 'r') as zipf:
 
 def show_home_page():
     st.title('EarnWise')
+    
+    # Añadir logotipo
+    st.image('logo.png', use_column_width=True)
 
     st.write('''
     Welcome to EarnWise!
