@@ -597,6 +597,9 @@ industry_info = {
     }
 }
 
+# Definir una escala de azules personalizada
+custom_blues = ['#08306b', '#08519c', '#2171b5', '#4292c6', '#6baed6', '#9ecae1', '#c6dbef', '#deebf7']
+
 def show_home_page():
     st.title('EarnWise')
 
@@ -655,7 +658,6 @@ def show_salary_insights():
             Medium_Salary=('Medium Salary', 'mean')
         ).reset_index()
 
-        custom_blues = ['#08306b', '#08519c', '#2171b5', '#4292c6', '#6baed6', '#9ecae1', '#c6dbef', '#deebf7']
         fig = px.choropleth(state_salary,
                             locations='State',
                             locationmode='USA-states',
@@ -677,7 +679,7 @@ def show_salary_insights():
             soft_skills = industry_info.get(category, {}).get('soft_skills', [])
             if soft_skills:
                 freq_dict = {skill.split('. ')[1]: int(skill.split('. ')[0]) for skill in soft_skills}
-                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate_from_frequencies(freq_dict)
+                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap=plt.cm.get_cmap("Blues")).generate_from_frequencies(freq_dict)
                 plt.figure(figsize=(10, 5))
                 plt.imshow(wordcloud, interpolation='bilinear')
                 plt.axis('off')
@@ -716,7 +718,6 @@ def show_salary_insights():
         grouped_df = filtered_df.groupby('Experience Level', as_index=False)['Medium Salary'].mean()
         grouped_df = grouped_df.sort_values(by='Medium Salary')
 
-        custom_blues = ['#08306b', '#08519c', '#2171b5', '#4292c6', '#6baed6', '#9ecae1', '#c6dbef', '#deebf7']
         fig = px.bar(grouped_df, x='Experience Level', y='Medium Salary', color='Experience Level',
                      title='Salary Distribution by Experience Level', color_continuous_scale=custom_blues)
         fig.update_traces(texttemplate='$%{y:,.2f}', textposition='outside')
@@ -744,7 +745,7 @@ def show_salary_insights():
             study_fields = industry_info.get(category, {}).get('study_fields', [])
             if study_fields:
                 text = ' '.join(study_fields)
-                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate(text)
+                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap=plt.cm.get_cmap("Blues")).generate(text)
                 plt.figure(figsize=(10, 5))
                 plt.imshow(wordcloud, interpolation='bilinear')
                 plt.axis('off')
@@ -760,7 +761,7 @@ def show_salary_insights():
             software_programs = industry_info.get(category, {}).get('software_programs', [])
             if software_programs:
                 text = ' '.join(software_programs)
-                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate(text)
+                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap=plt.cm.get_cmap("Blues")).generate(text)
                 plt.figure(figsize=(10, 5))
                 plt.imshow(wordcloud, interpolation='bilinear')
                 plt.axis('off')
