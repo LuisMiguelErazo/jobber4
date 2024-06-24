@@ -655,11 +655,12 @@ def show_salary_insights():
             Medium_Salary=('Medium Salary', 'mean')
         ).reset_index()
 
+        custom_blues = ['#08306b', '#08519c', '#2171b5', '#4292c6', '#6baed6', '#9ecae1', '#c6dbef', '#deebf7']
         fig = px.choropleth(state_salary,
                             locations='State',
                             locationmode='USA-states',
                             color='Medium_Salary',
-                            color_continuous_scale=px.colors.sequential.Blues_r,
+                            color_continuous_scale=custom_blues,
                             scope='usa',
                             labels={'Medium_Salary': 'Medium Salary'},
                             hover_data={'State': True, 'Medium_Salary': True})
@@ -715,8 +716,9 @@ def show_salary_insights():
         grouped_df = filtered_df.groupby('Experience Level', as_index=False)['Medium Salary'].mean()
         grouped_df = grouped_df.sort_values(by='Medium Salary')
 
+        custom_blues = ['#08306b', '#08519c', '#2171b5', '#4292c6', '#6baed6', '#9ecae1', '#c6dbef', '#deebf7']
         fig = px.bar(grouped_df, x='Experience Level', y='Medium Salary', color='Experience Level',
-                     title='Salary Distribution by Experience Level', color_continuous_scale=px.colors.sequential.Blues_r)
+                     title='Salary Distribution by Experience Level', color_continuous_scale=custom_blues)
         fig.update_traces(texttemplate='$%{y:,.2f}', textposition='outside')
 
         fig.update_layout(yaxis_tickformat='$,.2f')
