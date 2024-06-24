@@ -5,7 +5,6 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import zipfile
 
-# Carga de datos
 with zipfile.ZipFile('map_skills.zip', 'r') as zipf:
     with zipf.open('map_skills.csv') as f:
         df = pd.read_csv(f)
@@ -13,47 +12,44 @@ with zipfile.ZipFile('map_skills.zip', 'r') as zipf:
 # Título del Dashboard
 st.title('EarnWise')
 
-# Columnas para el párrafo de bienvenida y el botón
-col1, col2 = st.columns(2)
+# Párrafo de bienvenida
+st.write('''
+Welcome to EarnWise!
 
-with col1:
-    st.write('''
-    Welcome to EarnWise!
+The easiest, fastest and most transparent way to find salary information in your Sector/Industry.
 
-    The easiest, fastest and most transparent way to find salary information in your Sector/Industry.
+At this time, we only have information for the United States.
 
-    At this time, we only have information for the United States.
+Help us collect data from other countries by posting your information in the tab "Help Us Grow".
+''')
 
-    Help us collect data from other countries by posting your information in the tab "Help Us Grow".
-    ''')
+# Texto: 'Find your salary insights'
+st.header('Find your salary insights')
 
-with col2:
-    st.button('Predict your Salary')
+# Filtros
+st.subheader('Filters')
 
-# Sidebar con los filtros
-st.sidebar.header('Filters')
+categories = sorted(df['Category'].unique().tolist())
+categories = ['All'] + categories
+category = st.selectbox('Category', categories)
 
-# Función para obtener opciones de filtro
-def get_options(column, previous_filter=None, all_option=True):
-    if previous_filter is not None:
-        df_filtered = df
-        for col, val in previous_filter.items():
-            if val != 'All':
-                df_filtered = df_filtered[df_filtered[col] == val]
-    else:
-        df_filtered = df
+industries = df['Industry'].unique() if category == 'All' else df[df['Category'] == category]['Industry'].unique()
+industries = ['All'] + sorted(industries.tolist())
+industry = st.selectbox('Industry', industries)
 
-    options = sorted(df_filtered[column].unique().tolist())
-    if all_option:
-        options = ['All'] + options
-    return options
+experiences = df['Experience Level'].unique() if industry == 'All' else df[(df['Category'] == category) & (df['Industry'] == industry)]['Experience Level'].unique()
+experiences = ['All'] + sorted(experiences.tolist())
+experience = st.selectbox('Experience Level', experiences)
 
-category = st.sidebar.selectbox('Category', get_options('Category'))
-industry = st.sidebar.selectbox('Industry', get_options('Industry', {'Category': category}))
-experience = st.sidebar.selectbox('Experience Level', get_options('Experience Level', {'Category': category, 'Industry': industry}))
+# Texto: 'Or'
+st.markdown("<h3 style='text-align: center;'>Or</h3>", unsafe_allow_html=True)
+
+# Botón 'Predict your salary'
+if st.button('Predict your salary'):
+    st.write("This feature is coming soon!")
 
 # Pestañas
-tabs = st.tabs(['Map', 'Salary by State', 'Salary Distribution', 'Salary Insights', 'Key Skills', 'Study Fields', 'Relevant Tools', 'Help Us Grow'])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow'])
 
 # Función para actualizar el mapa
 def update_map(category, industry, experience):
@@ -90,13 +86,12 @@ def update_map(category, industry, experience):
 def plot_wordcloud(category):
     if category != 'All':
         filtered_df = df[df['Category'] == category]
-        top_skills = filtered_df['Soft Skill'].dropna().value_counts().head(8).index.tolist()
-        text = ' '.join(filtered_df[filtered_df['Soft Skill'].isin(top_skills)]['Soft Skill'].tolist())
+        text = ' '.join(filtered_df['Soft Skill'].dropna().tolist())
         wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
         plt.figure(figsize=(10, 5))
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')
-        plt.title(f'Top 8 Soft Skills in {category} Category')
+        plt.title(f'Top Soft Skills in {category} Category')
         st.pyplot(plt)
     else:
         st.write('Select a Category to Display Word Cloud')
@@ -160,66 +155,28 @@ def plot_salary_insights(category):
 
     st.plotly_chart(fig)
 
-# Función para word cloud de campos de estudio relevantes
-def plot_study_fields_wordcloud(category):
-    if category != 'All':
-        filtered_df = df[df['Category'] == category]
-        top_study_fields = filtered_df['Study Fields'].dropna().value_counts().head(4).index.tolist()
-        text = ' '.join(filtered_df[filtered_df['Study Fields'].isin(top_study_fields)]['Study Fields'].tolist())
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis('off')
-        plt.title(f'Study Fields in {category} Category')
-        st.pyplot(plt)
-    else:
-        st.write('Select a Category to Display Word Cloud')
-
-# Función para word cloud de herramientas relevantes
-def plot_tools_wordcloud(category):
-    if category != 'All':
-        filtered_df = df[df['Category'] == category]
-        top_tools = filtered_df['Software Programs'].dropna().value_counts().head(5).index.tolist()
-        text = ' '.join(filtered_df[filtered_df['Software Programs'].isin(top_tools)]['Software Programs'].tolist())
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis('off')
-        plt.title(f'Relevant Tools in {category} Category')
-        st.pyplot(plt)
-    else:
-        st.write('Select a Category to Display Word Cloud')
-
 # Map tab
-with tabs[0]:
+with tab1:
     update_map(category, industry, experience)
 
 # Salary by State tab
-with tabs[1]:
+with tab2:
     plot_salary_by_state(category, industry, experience)
 
+# Key Skills tab
+with tab3:
+    plot_wordcloud(category)
+
 # Salary Distribution tab
-with tabs[2]:
+with tab4:
     plot_salary_distribution(category, industry)
 
 # Salary Insights tab
-with tabs[3]:
+with tab5:
     plot_salary_insights(category)
 
-# Key Skills tab
-with tabs[4]:
-    plot_wordcloud(category)
-
-# Study Fields tab
-with tabs[5]:
-    plot_study_fields_wordcloud(category)
-
-# Relevant Tools tab
-with tabs[6]:
-    plot_tools_wordcloud(category)
-
 # Help Us Grow tab
-with tabs[7]:
+with tab6:
     st.header('Help Us Grow')
     with st.form(key='help_us_grow_form'):
         country = st.text_input('Country:')
