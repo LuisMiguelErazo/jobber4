@@ -53,7 +53,7 @@ def show_salary_insights():
     experiences = ['All'] + sorted(experiences.tolist())
     experience = st.selectbox('Experience Level', experiences)
 
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Map', 'Salary Distribution', 'Salary Insights', 'Key Skills', 'Study Fields', 'Relevant Tools', 'Help Us Grow'])
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Map', 'Salary Distribution', 'Salary Insights', 'Key Skills', 'Study Fields', 'Relevant Tools', 'Help Us Grow'])
 
     def update_map(category, industry, experience):
         filtered_df = df.copy()
