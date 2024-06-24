@@ -25,12 +25,13 @@ def show_home_page():
     Help us collect data from other countries by posting your information in the tab "Help Us Grow".
     ''')
 
-    # Centrar los botones
+    # Centrar los botones y el texto "Or"
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
         st.write("")
     with col2:
         find_insights = st.button('Find your salary insights')
+        st.markdown("<h3 style='text-align: center;'>Or</h3>", unsafe_allow_html=True)
         predict_salary = st.button('Predict your salary')
     with col3:
         st.write("")
