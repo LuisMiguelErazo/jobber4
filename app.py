@@ -60,7 +60,7 @@ def show_salary_insights():
     experience = st.selectbox('Experience Level', experiences)
 
     # Pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(['Map', 'Salary by State', 'Key Skills', 'Salary Distribution', 'Salary Insights', 'Help Us Grow', 'Study Fields', 'Relevant Tools'])
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(['Map', 'Salary by State', 'Salary Distribution', 'Salary Insights', 'Key Skills', 'Study Fields', 'Relevant Tools', 'Help Us Grow'])
 
     # Función para actualizar el mapa
     def update_map(category, industry, experience):
@@ -204,20 +204,28 @@ def show_salary_insights():
     with tab2:
         plot_salary_by_state(category, industry, experience)
 
-    # Key Skills tab
-    with tab3:
-        plot_wordcloud(category)
-
     # Salary Distribution tab
-    with tab4:
+    with tab3:
         plot_salary_distribution(category, industry)
 
     # Salary Insights tab
-    with tab5:
+    with tab4:
         plot_salary_insights(category)
 
-    # Help Us Grow tab
+    # Key Skills tab
+    with tab5:
+        plot_wordcloud(category)
+
+    # Study Fields tab
     with tab6:
+        plot_study_fields_wordcloud(category)
+
+    # Relevant Tools tab
+    with tab7:
+        plot_tools_wordcloud(category)
+
+    # Help Us Grow tab
+    with tab8:
         st.header('Help Us Grow')
         with st.form(key='help_us_grow_form'):
             country = st.text_input('Country:')
@@ -231,14 +239,6 @@ def show_salary_insights():
 
         if submit_button:
             st.write('Thank you for your submission!')
-
-    # Study Fields tab
-    with tab7:
-        plot_study_fields_wordcloud(category)
-
-    # Relevant Tools tab
-    with tab8:
-        plot_tools_wordcloud(category)
 
 # Inicializar la sesión de estado para la página
 if 'page' not in st.session_state:
