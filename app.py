@@ -631,31 +631,31 @@ def show_home_page():
     with col1:
         st.write("")
     with col2:
-        find_insights = st.button('Find your salary insights', key='find_insights')
+        find_insights = st.button('Find your salary insights')
         st.markdown("<h3 style='text-align: center;'>Or</h3>", unsafe_allow_html=True)
-        predict_salary = st.button('Predict your salary', key='predict_salary')
+        predict_salary = st.button('Predict your salary')
     with col3:
         st.write("")
 
     return find_insights, predict_salary
 
 def show_salary_insights():
-    if st.button('Home', key='home_button'):
+    if st.button('Home'):
         st.session_state.page = "home"
     
     st.subheader('Filters')
 
     categories = sorted(df['Category'].unique().tolist())
     categories = ['All'] + categories
-    category = st.selectbox('Category', categories, key='category_select')
+    category = st.selectbox('Category', categories)
 
     industries = df['Industry'].unique() if category == 'All' else df[df['Category'] == category]['Industry'].unique()
     industries = ['All'] + sorted(industries.tolist())
-    industry = st.selectbox('Industry', industries, key='industry_select')
+    industry = st.selectbox('Industry', industries)
 
     experiences = df['Experience Level'].unique() if industry == 'All' else df[(df['Category'] == category) & (df['Industry'] == industry)]['Experience Level'].unique()
     experiences = ['All'] + sorted(experiences.tolist())
-    experience = st.selectbox('Experience Level', experiences, key='experience_select')
+    experience = st.selectbox('Experience Level', experiences)
 
     tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Map', 'Salary Distribution', 'Salary Insights', 'Key Skills', 'Study Fields', 'Relevant Tools', 'Help Us Grow'])
 
@@ -739,18 +739,16 @@ def show_salary_insights():
 
     def show_list(category, column):
         if category != 'All':
-            if category in industry_info:
-                items = industry_info[category][column]
-                if items:
-                    st.write(f"{column.replace('_', ' ').title()} in {category} Category:")
-                    for item in items:
-                        st.write(f"- {item}")
-                else:
-                    st.write(f'No data available for the selected category and column {column}')
+            filtered_df = df[df['Category'] == category]
+            items = filtered_df[column].dropna().str.split(',').explode().unique()
+            if items.size > 0:
+                st.write(f"{column} in {category} Category:")
+                for item in items:
+                    st.write(f"- {item.strip()}")
             else:
                 st.write(f'No data available for the selected category and column {column}')
         else:
-            st.write(f'Select a Category to Display {column.replace("_", " ").title()}')
+            st.write(f'Select a Category to Display {column}')
 
     with tab1:
         update_map(category, industry, experience)
@@ -765,22 +763,22 @@ def show_salary_insights():
         plot_wordcloud(category)
 
     with tab5:
-        show_list(category, 'study_fields')
+        show_list(category, 'Study Fields')
 
     with tab6:
-        show_list(category, 'software_programs')
+        show_list(category, 'Software Programs')
 
     with tab7:
         st.header('Help Us Grow')
         with st.form(key='help_us_grow_form'):
-            country = st.text_input('Country:', key='country_input')
-            state = st.text_input('State:', key='state_input')
-            category_input = st.text_input('Category:', key='category_input_form')
-            industry_input = st.text_input('Industry:', key='industry_input_form')
-            experience_level = st.text_input('Experience Level:', key='experience_input_form')
-            salary = st.text_input('Salary:', key='salary_input_form')
+            country = st.text_input('Country:')
+            state = st.text_input('State:')
+            category_input = st.text_input('Category:')
+            industry_input = st.text_input('Industry:')
+            experience_level = st.text_input('Experience Level:')
+            salary = st.text_input('Salary:')
 
-            submit_button = st.form_submit_button(label='Submit', key='submit_button_form')
+            submit_button = st.form_submit_button(label='Submit')
 
         if submit_button:
             st.write('Thank you for your submission!')
