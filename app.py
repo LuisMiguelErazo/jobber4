@@ -92,6 +92,9 @@ def show_salary_insights():
             filtered_df = df[df['Category'] == category]
             text = ' '.join(filtered_df[column].dropna().tolist())
             if text:
+
+                freq_dict = {skill.split('. ')[1]: int(skill.split('. ')[0]) for skill in soft_skills}
+                
                 wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate(text)
                 word_freq = wordcloud.words_
                 top_words = dict(sorted(word_freq.items(), key=lambda item: item[1], reverse=True)[:7])
