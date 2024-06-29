@@ -87,27 +87,26 @@ def show_salary_insights():
         fig.update_layout(title='Medium Salary by State', geo=dict(scope='usa'))
         st.plotly_chart(fig)
 
-    def plot_wordcloud(category, column):
-        if category != 'All':
-            filtered_df = df[df['Category'] == category]
-            text = ' '.join(filtered_df[column].dropna().tolist())
-            if text:
-
+def plot_wordcloud(category, column, soft_skills):
+    if category != 'All':
+        filtered_df = df[df['Category'] == category]
+        text = ' '.join(filtered_df[column].dropna().tolist())
+        if text:
+            if soft_skills:  
                 freq_dict = {skill.split('. ')[1]: int(skill.split('. ')[0]) for skill in soft_skills}
                 
-                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate(text)
-                word_freq = wordcloud.words_
-                top_words = dict(sorted(word_freq.items(), key=lambda item: item[1], reverse=True)[:7])
-                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate_from_frequencies(top_words)
+                wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='Blues').generate_from_frequencies(freq_dict)
                 plt.figure(figsize=(10, 5))
                 plt.imshow(wordcloud, interpolation='bilinear')
                 plt.axis('off')
                 plt.title(f'Top {column} in {category} Category')
                 st.pyplot(plt)
             else:
-                st.write(f'No data available for the selected category and column {column}')
+                st.write('No soft skills data available to generate the word cloud')
         else:
-            st.write('Select a Category to Display Word Cloud')
+            st.write(f'No data available for the selected category and column {column}')
+    else:
+        st.write('Select a Category to Display Word Cloud')
 
     def plot_salary_distribution(category, industry):
         filtered_df = df.copy()
