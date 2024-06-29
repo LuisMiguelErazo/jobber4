@@ -9,7 +9,7 @@ import zipfile
 industry_info = {
     "Engineering": {
         "soft_skills": [
-            "8. Problem-solving", "7. Creativity", "6. Attention to detail", "5. Time management", 
+            "8. Problem-solving", "7. Creativity", "6. Attention to detail", "5. Time management",
             "4. Adaptability", "3. Critical thinking", "2. Teamwork", "1. Communication skills"
         ],
         "software_programs": [
@@ -45,7 +45,7 @@ industry_info = {
     },
     "Management": {
         "soft_skills": [
-            "8. Leadership", "7. Communication skills", "6. Decision-making", "5. Problem-solving", 
+            "8. Leadership", "7. Communication skills", "6. Decision-making", "5. Problem-solving",
             "4. Time management", "3. Strategic thinking", "2. Teamwork", "1. Conflict resolution"
         ],
         "software_programs": [
@@ -57,7 +57,7 @@ industry_info = {
     },
     "Sales": {
         "soft_skills": [
-            "8. Communication skills", "7. Persuasion", "6. Negotiation skills", "5. Customer service", 
+            "8. Communication skills", "7. Persuasion", "6. Negotiation skills", "5. Customer service",
             "4. Relationship building", "3. Time management", "2. Problem-solving", "1. Adaptability"
         ],
         "software_programs": [
@@ -69,7 +69,7 @@ industry_info = {
     },
     "Support": {
         "soft_skills": [
-            "8. Communication skills", "7. Patience", "6. Problem-solving", "5. Empathy", 
+            "8. Communication skills", "7. Patience", "6. Problem-solving", "5. Empathy",
             "4. Customer service", "3. Adaptability", "2. Attention to detail", "1. Time management"
         ],
         "software_programs": [
@@ -81,7 +81,7 @@ industry_info = {
     },
     "Healthcare": {
         "soft_skills": [
-            "8. Communication skills", "7. Empathy", "6. Attention to detail", "5. Problem-solving", 
+            "8. Communication skills", "7. Empathy", "6. Attention to detail", "5. Problem-solving",
             "4. Teamwork", "3. Time management", "2. Adaptability", "1. Patience"
         ],
         "software_programs": [
@@ -93,7 +93,7 @@ industry_info = {
     },
     "Education": {
         "soft_skills": [
-            "8. Communication skills", "7. Patience", "6. Empathy", "5. Organizational skills", 
+            "8. Communication skills", "7. Patience", "6. Empathy", "5. Organizational skills",
             "4. Problem-solving", "3. Adaptability", "2. Creativity", "1. Time management"
         ],
         "software_programs": [
@@ -105,7 +105,7 @@ industry_info = {
     },
     "Finance": {
         "soft_skills": [
-            "8. Analytical thinking", "7. Attention to detail", "6. Problem-solving", "5. Communication skills", 
+            "8. Analytical thinking", "7. Attention to detail", "6. Problem-solving", "5. Communication skills",
             "4. Ethical judgment", "3. Time management", "2. Critical thinking", "1. Decision-making"
         ],
         "software_programs": [
@@ -117,7 +117,7 @@ industry_info = {
     },
     "Marketing": {
         "soft_skills": [
-            "8. Creativity", "7. Communication skills", "6. Analytical thinking", "5. Problem-solving", 
+            "8. Creativity", "7. Communication skills", "6. Analytical thinking", "5. Problem-solving",
             "4. Adaptability", "3. Strategic thinking", "2. Teamwork", "1. Time management"
         ],
         "software_programs": [
@@ -129,7 +129,7 @@ industry_info = {
     },
     "Human Resources": {
         "soft_skills": [
-            "8. Communication skills", "7. Empathy", "6. Problem-solving", "5. Conflict resolution", 
+            "8. Communication skills", "7. Empathy", "6. Problem-solving", "5. Conflict resolution",
             "4. Adaptability", "3. Organizational skills", "2. Time management", "1. Negotiation skills"
         ],
         "software_programs": [
@@ -141,7 +141,7 @@ industry_info = {
     },
     "Information Technology": {
         "soft_skills": [
-            "8. Analytical thinking", "7. Problem-solving", "6. Communication skills", "5. Attention to detail", 
+            "8. Analytical thinking", "7. Problem-solving", "6. Communication skills", "5. Attention to detail",
             "4. Time management", "3. Adaptability", "2. Teamwork", "1. Technical proficiency"
         ],
         "software_programs": [
@@ -154,7 +154,7 @@ industry_info = {
     },
     "Legal": {
         "soft_skills": [
-            "8. Analytical thinking", "7. Attention to detail", "6. Communication skills", "5. Problem-solving", 
+            "8. Analytical thinking", "7. Attention to detail", "6. Communication skills", "5. Problem-solving",
             "4. Ethical judgment", "3. Time management", "2. Critical thinking", "1. Negotiation skills"
         ],
         "software_programs": [
@@ -167,7 +167,7 @@ industry_info = {
     },
     "Operations": {
         "soft_skills": [
-            "8. Problem-solving", "7. Analytical thinking", "6. Communication skills", "5. Organizational skills", 
+            "8. Problem-solving", "7. Analytical thinking", "6. Communication skills", "5. Organizational skills",
             "4. Time management", "3. Teamwork", "2. Adaptability", "1. Decision-making"
         ],
         "software_programs": [
@@ -180,7 +180,7 @@ industry_info = {
     },
     "Product Management": {
         "soft_skills": [
-            "8. Communication skills", "7. Problem-solving", "6. Analytical thinking", "5. Project management", 
+            "8. Communication skills", "7. Problem-solving", "6. Analytical thinking", "5. Project management",
             "4. Time management", "3. Teamwork", "2. Strategic thinking", "1. Decision-making"
         ],
         "software_programs": [
@@ -193,7 +193,7 @@ industry_info = {
     },
     "Project Management": {
         "soft_skills": [
-            "8. Leadership", "7. Communication skills", "6. Problem-solving", "5. Time management", 
+            "8. Leadership", "7. Communication skills", "6. Problem-solving", "5. Time management",
             "4. Teamwork", "3. Organizational skills", "2. Decision-making", "1. Negotiation skills"
         ],
         "software_programs": [
@@ -205,7 +205,7 @@ industry_info = {
     },
     "Research": {
         "soft_skills": [
-            "8. Analytical thinking", "7. Attention to detail", "6. Problem-solving", "5. Communication skills", 
+            "8. Analytical thinking", "7. Attention to detail", "6. Problem-solving", "5. Communication skills",
             "4. Time management", "3. Critical thinking", "2. Adaptability", "1. Research skills"
         ],
         "software_programs": [
@@ -218,7 +218,7 @@ industry_info = {
     },
     "Supply Chain": {
         "soft_skills": [
-            "8. Organizational skills", "7. Problem-solving", "6. Communication skills", "5. Time management", 
+            "8. Organizational skills", "7. Problem-solving", "6. Communication skills", "5. Time management",
             "4. Analytical thinking", "3. Attention to detail", "2. Teamwork", "1. Negotiation skills"
         ],
         "software_programs": [
@@ -231,7 +231,7 @@ industry_info = {
     },
     "Training and Development": {
         "soft_skills": [
-            "8. Communication skills", "7. Patience", "6. Problem-solving", "5. Organizational skills", 
+            "8. Communication skills", "7. Patience", "6. Problem-solving", "5. Organizational skills",
             "4. Adaptability", "3. Creativity", "2. Leadership", "1. Time management"
         ],
         "software_programs": [
@@ -244,7 +244,7 @@ industry_info = {
     },
     "Writing and Editing": {
         "soft_skills": [
-            "8. Communication skills", "7. Attention to detail", "6. Creativity", "5. Time management", 
+            "8. Communication skills", "7. Attention to detail", "6. Creativity", "5. Time management",
             "4. Critical thinking", "3. Adaptability", "2. Research skills", "1. Teamwork"
         ],
         "software_programs": [
@@ -256,7 +256,7 @@ industry_info = {
     },
     "Construction": {
         "soft_skills": [
-            "8. Teamwork", "7. Communication skills", "6. Problem-solving", "5. Attention to detail", 
+            "8. Teamwork", "7. Communication skills", "6. Problem-solving", "5. Attention to detail",
             "4. Time management", "3. Adaptability", "2. Physical stamina", "1. Technical proficiency"
         ],
         "software_programs": [
@@ -268,7 +268,7 @@ industry_info = {
     },
     "Retail": {
         "soft_skills": [
-            "8. Customer service", "7. Communication skills", "6. Problem-solving", "5. Teamwork", 
+            "8. Customer service", "7. Communication skills", "6. Problem-solving", "5. Teamwork",
             "4. Time management", "3. Adaptability", "2. Organizational skills", "1. Attention to detail"
         ],
         "software_programs": [
@@ -280,7 +280,7 @@ industry_info = {
     },
     "Customer Service": {
         "soft_skills": [
-            "8. Communication skills", "7. Patience", "6. Problem-solving", "5. Empathy", 
+            "8. Communication skills", "7. Patience", "6. Problem-solving", "5. Empathy",
             "4. Customer service", "3. Adaptability", "2. Attention to detail", "1. Time management"
         ],
         "software_programs": [
@@ -292,7 +292,7 @@ industry_info = {
     },
     "Administrative": {
         "soft_skills": [
-            "8. Organizational skills", "7. Communication skills", "6. Attention to detail", "5. Time management", 
+            "8. Organizational skills", "7. Communication skills", "6. Attention to detail", "5. Time management",
             "4. Problem-solving", "3. Adaptability", "2. Teamwork", "1. Customer service"
         ],
         "software_programs": [
@@ -304,7 +304,7 @@ industry_info = {
     },
     "Food and Beverages": {
         "soft_skills": [
-            "8. Communication skills", "7. Teamwork", "6. Attention to detail", "5. Time management", 
+            "8. Communication skills", "7. Teamwork", "6. Attention to detail", "5. Time management",
             "4. Adaptability", "3. Customer service", "2. Problem-solving", "1. Creativity"
         ],
         "software_programs": [
@@ -316,7 +316,7 @@ industry_info = {
     },
     "Manufacturing": {
         "soft_skills": [
-            "8. Attention to detail", "7. Problem-solving", "6. Teamwork", "5. Time management", 
+            "8. Attention to detail", "7. Problem-solving", "6. Teamwork", "5. Time management",
             "4. Adaptability", "3. Communication skills", "2. Technical proficiency", "1. Organizational skills"
         ],
         "software_programs": [
@@ -328,7 +328,7 @@ industry_info = {
     },
     "Logistics": {
         "soft_skills": [
-            "8. Organizational skills", "7. Problem-solving", "6. Communication skills", "5. Time management", 
+            "8. Organizational skills", "7. Problem-solving", "6. Communication skills", "5. Time management",
             "4. Analytical thinking", "3. Attention to detail", "2. Teamwork", "1. Negotiation skills"
         ],
         "software_programs": [
@@ -341,7 +341,7 @@ industry_info = {
     },
     "Arts and Design": {
         "soft_skills": [
-            "8. Creativity", "7. Communication skills", "6. Attention to detail", "5. Time management", 
+            "8. Creativity", "7. Communication skills", "6. Attention to detail", "5. Time management",
             "4. Adaptability", "3. Problem-solving", "2. Teamwork", "1. Critical thinking"
         ],
         "software_programs": [
@@ -353,7 +353,7 @@ industry_info = {
     },
     "Entertainment": {
         "soft_skills": [
-            "8. Creativity", "7. Communication skills", "6. Teamwork", "5. Adaptability", 
+            "8. Creativity", "7. Communication skills", "6. Teamwork", "5. Adaptability",
             "4. Problem-solving", "3. Time management", "2. Presentation skills", "1. Networking skills"
         ],
         "software_programs": [
@@ -365,19 +365,19 @@ industry_info = {
     },
     "Real Estate": {
         "soft_skills": [
-            "8. Communication skills", "7. Negotiation skills", "6. Customer service", "5. Problem-solving", 
+            "8. Communication skills", "7. Negotiation skills", "6. Customer service", "5. Problem-solving",
             "4. Attention to detail", "3. Time management", "2. Adaptability", "1. Sales skills"
         ],
         "software_programs": [
             "CRM software", "Microsoft Office Suite", "Property management software", "MLS (Multiple Listing Service) platforms"
-        ]
+        ],
         "study_fields": [
             "Real Estate", "Business Administration", "Marketing", "Finance", "Urban Planning"
         ]
     },
     "Healthcare Support": {
         "soft_skills": [
-            "8. Communication skills", "7. Attention to detail", "6. Empathy", "5. Customer service", 
+            "8. Communication skills", "7. Attention to detail", "6. Empathy", "5. Customer service",
             "4. Problem-solving", "3. Teamwork", "2. Adaptability", "1. Time management"
         ],
         "software_programs": [
@@ -389,7 +389,7 @@ industry_info = {
     },
     "Human Services": {
         "soft_skills": [
-            "8. Empathy", "7. Communication skills", "6. Problem-solving", "5. Teamwork", 
+            "8. Empathy", "7. Communication skills", "6. Problem-solving", "5. Teamwork",
             "4. Time management", "3. Adaptability", "2. Conflict resolution", "1. Patience"
         ],
         "software_programs": [
@@ -401,7 +401,7 @@ industry_info = {
     },
     "Fitness": {
         "soft_skills": [
-            "8. Communication skills", "7. Motivation", "6. Problem-solving", "5. Patience", 
+            "8. Communication skills", "7. Motivation", "6. Problem-solving", "5. Patience",
             "4. Adaptability", "3. Teamwork", "2. Time management", "1. Customer service"
         ],
         "software_programs": [
@@ -413,7 +413,7 @@ industry_info = {
     },
     "Aviation and Aerospace": {
         "soft_skills": [
-            "8. Attention to detail", "7. Problem-solving", "6. Communication skills", "5. Teamwork", 
+            "8. Attention to detail", "7. Problem-solving", "6. Communication skills", "5. Teamwork",
             "4. Adaptability", "3. Time management", "2. Technical proficiency", "1. Critical thinking"
         ],
         "software_programs": [
@@ -425,7 +425,7 @@ industry_info = {
     },
     "Automotive": {
         "soft_skills": [
-            "8. Problem-solving", "7. Technical proficiency", "6. Communication skills", "5. Attention to detail", 
+            "8. Problem-solving", "7. Technical proficiency", "6. Communication skills", "5. Attention to detail",
             "4. Time management", "3. Teamwork", "2. Customer service", "1. Adaptability"
         ],
         "software_programs": [
@@ -437,7 +437,7 @@ industry_info = {
     },
     "Banking": {
         "soft_skills": [
-            "8. Communication skills", "7. Customer service", "6. Attention to detail", "5. Problem-solving", 
+            "8. Communication skills", "7. Customer service", "6. Attention to detail", "5. Problem-solving",
             "4. Analytical thinking", "3. Time management", "2. Teamwork", "1. Ethical judgment"
         ],
         "software_programs": [
@@ -449,7 +449,7 @@ industry_info = {
     },
     "Biotechnology": {
         "soft_skills": [
-            "8. Analytical thinking", "7. Problem-solving", "6. Attention to detail", "5. Communication skills", 
+            "8. Analytical thinking", "7. Problem-solving", "6. Attention to detail", "5. Communication skills",
             "4. Research skills", "3. Teamwork", "2. Time management", "1. Adaptability"
         ],
         "software_programs": [
@@ -462,7 +462,7 @@ industry_info = {
     },
     "Communications": {
         "soft_skills": [
-            "8. Communication skills", "7. Public speaking", "6. Problem-solving", "5. Creativity", 
+            "8. Communication skills", "7. Public speaking", "6. Problem-solving", "5. Creativity",
             "4. Adaptability", "3. Teamwork", "2. Time management", "1. Conflict resolution"
         ],
         "software_programs": [
@@ -474,7 +474,7 @@ industry_info = {
     },
     "Energy and Utilities": {
         "soft_skills": [
-            "8. Technical proficiency", "7. Safety awareness", "6. Analytical thinking", "5. Problem-solving", 
+            "8. Technical proficiency", "7. Safety awareness", "6. Analytical thinking", "5. Problem-solving",
             "4. Attention to detail", "3. Communication skills", "2. Critical thinking", "1. Teamwork"
         ],
         "software_programs": [
@@ -486,7 +486,7 @@ industry_info = {
     },
     "Environmental Services": {
         "soft_skills": [
-            "8. Analytical thinking", "7. Research skills", "6. Attention to detail", "5. Problem-solving", 
+            "8. Analytical thinking", "7. Research skills", "6. Attention to detail", "5. Problem-solving",
             "4. Communication skills", "3. Critical thinking", "2. Teamwork", "1. Adaptability"
         ],
         "software_programs": [
@@ -498,7 +498,7 @@ industry_info = {
     },
     "Hospitality": {
         "soft_skills": [
-            "8. Customer service", "7. Communication skills", "6. Problem-solving", "5. Teamwork", 
+            "8. Customer service", "7. Communication skills", "6. Problem-solving", "5. Teamwork",
             "4. Time management", "3. Adaptability", "2. Organizational skills", "1. Attention to detail"
         ],
         "software_programs": [
@@ -510,7 +510,7 @@ industry_info = {
     },
     "Insurance": {
         "soft_skills": [
-            "8. Communication skills", "7. Customer service", "6. Problem-solving", "5. Analytical thinking", 
+            "8. Communication skills", "7. Customer service", "6. Problem-solving", "5. Analytical thinking",
             "4. Attention to detail", "3. Negotiation skills", "2. Time management", "1. Teamwork"
         ],
         "software_programs": [
@@ -522,7 +522,7 @@ industry_info = {
     },
     "Media and Entertainment": {
         "soft_skills": [
-            "8. Creativity", "7. Communication skills", "6. Teamwork", "5. Adaptability", 
+            "8. Creativity", "7. Communication skills", "6. Teamwork", "5. Adaptability",
             "4. Problem-solving", "3. Time management", "2. Presentation skills", "1. Networking skills"
         ],
         "software_programs": [
@@ -534,7 +534,7 @@ industry_info = {
     },
     "Public Sector": {
         "soft_skills": [
-            "8. Communication skills", "7. Problem-solving", "6. Teamwork", "5. Adaptability", 
+            "8. Communication skills", "7. Problem-solving", "6. Teamwork", "5. Adaptability",
             "4. Analytical thinking", "3. Attention to detail", "2. Organizational skills", "1. Time management"
         ],
         "software_programs": [
@@ -546,7 +546,7 @@ industry_info = {
     },
     "Telecommunications": {
         "soft_skills": [
-            "8. Technical proficiency", "7. Communication skills", "6. Problem-solving", "5. Attention to detail", 
+            "8. Technical proficiency", "7. Communication skills", "6. Problem-solving", "5. Attention to detail",
             "4. Teamwork", "3. Adaptability", "2. Time management", "1. Customer service"
         ],
         "software_programs": [
@@ -558,7 +558,7 @@ industry_info = {
     },
     "Transportation": {
         "soft_skills": [
-            "8. Communication skills", "7. Time management", "6. Problem-solving", "5. Attention to detail", 
+            "8. Communication skills", "7. Time management", "6. Problem-solving", "5. Attention to detail",
             "4. Teamwork", "3. Adaptability", "2. Customer service", "1. Organizational skills"
         ],
         "software_programs": [
@@ -570,7 +570,7 @@ industry_info = {
     },
     "Veterinary": {
         "soft_skills": [
-            "8. Communication skills", "7. Empathy", "6. Attention to detail", "5. Problem-solving", 
+            "8. Communication skills", "7. Empathy", "6. Attention to detail", "5. Problem-solving",
             "4. Teamwork", "3. Adaptability", "2. Time management", "1. Customer service"
         ],
         "software_programs": [
@@ -582,7 +582,7 @@ industry_info = {
     },
     "Warehousing": {
         "soft_skills": [
-            "8. Teamwork", "7. Attention to detail", "6. Time management", "5. Organizational skills", 
+            "8. Teamwork", "7. Attention to detail", "6. Time management", "5. Organizational skills",
             "4. Communication skills", "3. Problem-solving", "2. Physical stamina", "1. Adaptability"
         ],
         "software_programs": [
