@@ -273,8 +273,7 @@ industry_info = {
         ],
         "software_programs": [
             "Point of Sale (POS) systems", "Inventory management software", "Microsoft Office Suite", "CRM software"
-        ]
-        ,
+        ],
         "study_fields": [
             "Business Administration", "Marketing", "Retail Management", "Communications", "Sales"
         ]
@@ -794,11 +793,6 @@ if st.session_state.page == 'home':
     if find_insights:
         st.session_state.page = 'insights'
     elif predict_salary:
-        st.experimental_set_query_params(page='predict_salary')
-        st.write("""
-            <script>
-                window.location.href = "https://earnwiseregression.streamlit.app/";
-            </script>
-        """, unsafe_allow_html=True)
+        st.write("This feature is coming soon!")
 elif st.session_state.page == 'insights':
     show_salary_insights()
