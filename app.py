@@ -647,6 +647,18 @@ def show_salary_insights():
 
     tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Map', 'Salary Distribution', 'Salary Insights', 'Key Skills', 'Study Fields', 'Relevant Tools', 'Help Us Grow'])
 
+    # Definir una escala de colores más oscura
+    custom_blues = [
+        "rgb(8, 48, 107)",
+        "rgb(8, 81, 156)",
+        "rgb(33, 113, 181)",
+        "rgb(66, 146, 198)",
+        "rgb(107, 174, 214)",
+        "rgb(158, 202, 225)",
+        "rgb(198, 219, 239)",
+        "rgb(222, 235, 247)"
+    ]
+
     def update_map(category, industry, experience):
         filtered_df = df.copy()
         if category != 'All':
@@ -664,7 +676,7 @@ def show_salary_insights():
                             locations='State',
                             locationmode='USA-states',
                             color='Medium_Salary',
-                            color_continuous_scale='Blues',  # Usar Blues para valores claros a oscuros
+                            color_continuous_scale=custom_blues,
                             scope='usa',
                             labels={'Medium_Salary': 'Medium Salary'},
                             hover_data={'State': True, 'Medium_Salary': True})
@@ -704,7 +716,7 @@ def show_salary_insights():
         grouped_df = grouped_df.sort_values(by='Medium Salary')
 
         fig = px.bar(grouped_df, x='Experience Level', y='Medium Salary', color='Medium Salary',
-                     color_continuous_scale='Blues',  # Usar Blues para valores claros a oscuros
+                     color_continuous_scale=custom_blues,
                      title='Salary Distribution by Experience Level')
         fig.update_traces(texttemplate='$%{y:,.2f}', textposition='outside')
 
@@ -719,7 +731,7 @@ def show_salary_insights():
 
         fig = px.box(filtered_df, x='Category', y='Medium Salary',
                      title='Salary Insights by Category',
-                     color_discrete_sequence=['#0000FF'])  # Usar azul oscuro para valores altos
+                     color_discrete_sequence=['#08306b'])  # Usar un azul muy oscuro
 
         fig.update_traces(
             hovertemplate='<b>%{x}</b><br>Medium Salary: $%{y:,.2f}<extra></extra>'
